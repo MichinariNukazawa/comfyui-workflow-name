@@ -18,8 +18,10 @@ _FALLBACK_NAME = "NO_WORKFLOW_NAME"
 
 def sanitize_filename(name: str) -> str:
     """ワークフロー名をファイル名として安全な文字列に変換する"""
-    # パス区切り・拡張子を除去
-    name = os.path.splitext(os.path.basename(name))[0]
+    # パス区切りを除去
+    name = os.path.basename(name)
+    # 拡張子("".json")を除去
+    name = name.removesuffix(".json")
     # 禁止文字をアンダースコアに置換
     name = _INVALID_CHARS.sub("_", name)
     # 先頭末尾のスペース・ドット・アンダースコアを除去（Windowsで問題になる）
